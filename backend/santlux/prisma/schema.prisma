@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client"
+  output          = "./generated"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  // connect prisma cli to the encore shadow database
+  // so that it doesnt interfere with encores migrations.
+  url      = env("SHADOW_DB_URL")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String
+  surname String
+}
+
+model padroes_grupos {
+  id        String              @id @db.Char(3)
+  grupo     String
+  subgrupos padroes_subgrupos[]
+}
+
+model padroes_subgrupos {
+  id       String         @id @db.Char(3)
+  subgrupo String
+  grupoId  String         @db.Char(3)
+  grupo    padroes_grupos @relation(fields: [grupoId], references: [id])
+
+  modelos padroes_modelos[]
+}
+
+model padroes_modelos {
+  id         String            @id @db.Char(3)
+  modelo     String
+  subgrupoId String            @db.Char(3)
+  subgrupo   padroes_subgrupos @relation(fields: [subgrupoId], references: [id])
+}
+

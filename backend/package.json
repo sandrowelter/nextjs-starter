@@ -1,15 +1,25 @@
 {
-  "name": "backend",
+  "name": "encore-prisma-example",
   "private": true,
   "version": "0.0.1",
-  "description": "Encore + Next Starter",
+  "description": "Encore + Prisma Typescript Example",
   "license": "MPL-2.0",
   "type": "module",
+  "scripts": {
+    "postinstall": "npx prisma generate"
+  },
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "@types/node": "^20"
+    "@types/node": "^20.5.7",
+    "prisma": "^6.11.1",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "encore.dev": "^1.43.9"
+    "@prisma/adapter-pg": "^6.11.1",
+    "@prisma/client": "^6.11.1",
+    "dotenv": "^17.2.0",
+    "encore.dev": "^1.49.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.13.0"
   }
 }
